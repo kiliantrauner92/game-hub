@@ -8,6 +8,15 @@ import LikeButton from "./components/LikeButton/LikeButton";
 
 function App() {
   let items = ["as1", "as2", "as3"];
+  const [bugs, setBugs] = useState([
+    { id: 1, title: "Bug1", solved: false },
+    { id: 2, title: "Bug2", solved: false },
+  ]);
+
+  const handleClick = () => {
+    setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, solved: true } : bug)));
+    console.log(bugs);
+  };
 
   return (
     <div className="App">
@@ -15,6 +24,7 @@ function App() {
         defaultState={true}
         onClick={() => {
           console.log("clicked");
+          handleClick();
         }}
       />
       {/* <BsFillCalendarFill color="red" size="40" />
