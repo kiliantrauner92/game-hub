@@ -1,4 +1,5 @@
 import { useState } from "react";
+import produce from "immer";
 import reactLogo from "./assets/react.svg";
 
 import { BsFillCalendarFill } from "react-icons/bs";
@@ -15,16 +16,29 @@ function App() {
 
   const handleClick = () => {
     setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, solved: true } : bug)));
-    console.log(bugs);
+  };
+  const handleClick2 = () => {
+    setBugs(
+      produce((draft) => {
+        const bug = draft.find((bug) => bug.id === 2);
+        if (bug) bug.solved = true;
+      })
+    );
   };
 
   return (
     <div className="App">
+      {bugs.map((bug) => (
+        <p key={bug.id}>
+          {bug.title} {bug.solved ? "Fixed" : "New"}
+        </p>
+      ))}
       <LikeButton
         defaultState={true}
         onClick={() => {
           console.log("clicked");
           handleClick();
+          handleClick2();
         }}
       />
       {/* <BsFillCalendarFill color="red" size="40" />
