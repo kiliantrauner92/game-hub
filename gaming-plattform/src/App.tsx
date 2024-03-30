@@ -10,55 +10,43 @@ import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 
 function App() {
-  let items = ["as1", "as2", "as3"];
-  const [cartItems, setCartItems] = useState(["Product1", "Product2"]);
-  const [bugs, setBugs] = useState([
-    { id: 1, title: "Bug1", solved: false },
-    { id: 2, title: "Bug2", solved: false },
-  ]);
-
+  const [game, setGame] = useState({
+    id: 1,
+    player: {
+      name: "John",
+    },
+  });
+  const [pizza, setPizza] = useState({
+    name: "Spicy Pepperoni",
+    toppings: ["Mushroom"],
+  });
+  const [cart, setCart] = useState({
+    discount: 0.1,
+    items: [
+      { id: 1, title: "Product1", quantity: 1 },
+      { id: 2, title: "Product2", quantity: 1 },
+    ],
+  });
   const handleClick = () => {
-    setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, solved: true } : bug)));
-    setCartItems([...cartItems, "Product" + (cartItems.length + 1)]);
+    setGame({ ...game, player: { ...game.player, name: "Bob" } });
+    setPizza({ ...pizza, toppings: [...pizza.toppings, "Salami"] });
+    setCart({
+      ...cart,
+      items: cart.items.map((item) =>
+        item.id === 2 ? { ...item, quantity: item.quantity + 1 } : item
+      ),
+    });
   };
-  const handleClick2 = () => {
-    setBugs(
-      produce((draft) => {
-        const bug = draft.find((bug) => bug.id === 2);
-        if (bug) bug.solved = true;
-      })
-    );
-  };
-
   return (
     <>
-      <div>
-        <NavBar cartItemsCount={cartItems.length}></NavBar>
-      </div>
-      <div className="App">
-        <Cart cartItems={cartItems} onClear={() => setCartItems([])}></Cart>
-        {bugs.map((bug) => (
-          <p key={bug.id}>
-            {bug.title} {bug.solved ? "Fixed" : "New"}
-          </p>
-        ))}
-        <LikeButton
-          defaultState={true}
-          onClick={() => {
-            console.log("clicked");
-            handleClick();
-            handleClick2();
-          }}
-        />
-        {/* <BsFillCalendarFill color="red" size="40" />
-      <ListGroup
-        items={items}
-        heading="Cities"
-        onSelectItem={() => {}}
-      ></ListGroup>
-      <MyButton children="Primary" onClick={() => {}} />
-      <MyButton children="Success" onClick={() => {}} color="success" /> */}
-      </div>
+      <p>{game.player.name}</p>
+      <p>{pizza.toppings.join(" ")}</p>
+      {cart.items.map((item) => (
+        <p>
+          {item.title} {item.quantity}
+        </p>
+      ))}
+      <button onClick={handleClick}>ChangeName</button>
     </>
   );
 }
