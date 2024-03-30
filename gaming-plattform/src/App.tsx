@@ -6,9 +6,12 @@ import { BsFillCalendarFill } from "react-icons/bs";
 import ListGroup from "./components/ListGroup/ListGroup";
 import MyButton from "./components/MyButton/MyButton";
 import LikeButton from "./components/LikeButton/LikeButton";
+import NavBar from "./components/NavBar";
+import Cart from "./components/Cart";
 
 function App() {
   let items = ["as1", "as2", "as3"];
+  const [cartItems, setCartItems] = useState(["Product1", "Product2"]);
   const [bugs, setBugs] = useState([
     { id: 1, title: "Bug1", solved: false },
     { id: 2, title: "Bug2", solved: false },
@@ -16,6 +19,7 @@ function App() {
 
   const handleClick = () => {
     setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, solved: true } : bug)));
+    setCartItems([...cartItems, "Product" + (cartItems.length + 1)]);
   };
   const handleClick2 = () => {
     setBugs(
@@ -27,21 +31,26 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {bugs.map((bug) => (
-        <p key={bug.id}>
-          {bug.title} {bug.solved ? "Fixed" : "New"}
-        </p>
-      ))}
-      <LikeButton
-        defaultState={true}
-        onClick={() => {
-          console.log("clicked");
-          handleClick();
-          handleClick2();
-        }}
-      />
-      {/* <BsFillCalendarFill color="red" size="40" />
+    <>
+      <div>
+        <NavBar cartItemsCount={cartItems.length}></NavBar>
+      </div>
+      <div className="App">
+        <Cart cartItems={cartItems} onClear={() => setCartItems([])}></Cart>
+        {bugs.map((bug) => (
+          <p key={bug.id}>
+            {bug.title} {bug.solved ? "Fixed" : "New"}
+          </p>
+        ))}
+        <LikeButton
+          defaultState={true}
+          onClick={() => {
+            console.log("clicked");
+            handleClick();
+            handleClick2();
+          }}
+        />
+        {/* <BsFillCalendarFill color="red" size="40" />
       <ListGroup
         items={items}
         heading="Cities"
@@ -49,7 +58,8 @@ function App() {
       ></ListGroup>
       <MyButton children="Primary" onClick={() => {}} />
       <MyButton children="Success" onClick={() => {}} color="success" /> */}
-    </div>
+      </div>
+    </>
   );
 }
 
