@@ -1,15 +1,54 @@
 import { useState } from "react";
-import produce from "immer";
-import reactLogo from "./assets/react.svg";
 
-import { BsFillCalendarFill } from "react-icons/bs";
-import Form from "./components/Form";
+import ExpenseForm from "./expense-tracker/components/ExpenseForm";
+import ExpenseList from "./expense-tracker/components/ExpenseList";
+import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
+
+export interface Expense {
+  id: number;
+  description: string;
+  amount: number;
+  category: string;
+}
 
 function App() {
+  const [expenses, setExpenses] = useState<Expense[]>([
+    { id: 1, description: "Test", amount: 5, category: "Groceries" },
+    { id: 2, description: "Test2", amount: 3, category: "Utilities" },
+  ]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const visibleExpenses = selectedCategory
+    ? expenses.filter((expenses) => expenses.category === selectedCategory)
+    : expenses;
   return (
     <>
-      <div>
-        <Form />
+      <div className="mb-5">
+        <ExpenseForm
+          onSubmit={(expense) =>
+            setExpenses([
+              ...expenses,
+              {
+                ...expense,
+                id: expenses.findLastIndex((value) => value.id) + 1,
+              },
+            ])
+          }
+        />
+      </div>
+      <div className="mb-3">
+        <ExpenseFilter
+          onSelectCategory={(category: string) => setSelectedCategory(category)}
+        />
+      </div>
+      <div className="mb-3">
+        <ExpenseList
+          expenses={visibleExpenses}
+          onDelete={(id) =>
+            setExpenses(visibleExpenses.filter((expense) => expense.id !== id))
+          }
+          // onFilter={filterExpenses}
+        />
       </div>
     </>
   );
