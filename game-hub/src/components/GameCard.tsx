@@ -3,32 +3,32 @@ import {
   Box,
   Card,
   CardBody,
-  Center,
   HStack,
   Heading,
-  Icon,
   Image,
-  Text,
-  VStack,
 } from "@chakra-ui/react";
 import { Game, Platform } from "../hooks/useGames";
+import PlatformIconList from "./PlatformIconList";
+import CriticScore from "./CriticScore";
+import RatingIcon from "./RatingIcon";
 
-const GameCard = (game: Game) => {
+interface Props {
+  game: Game;
+}
+const GameCard = ({ game }: Props) => {
   console.log(game);
   return (
-    <Card borderRadius="lg" overflow="hidden">
+    <Card shadow="xl" borderRadius="lg" overflow="hidden">
       <Image src={game.background_image}></Image>
       <CardBody p="4">
-        <Box display="flex" alignItems="baseline">
-          {game.parent_platforms.map(({ platform, released_at }) => (
-            <p key={platform.id}>{platform.name}</p>
-          ))}
-          <Badge colorScheme="green" borderRadius={3}>
-            {game.metacritic}
-          </Badge>
-        </Box>
+        <HStack justifyContent={"space-between"}>
+          <PlatformIconList
+            platform={game.parent_platforms.map((p) => p.platform)}
+          />
+          <CriticScore score={game.metacritic} />
+        </HStack>
         <Heading fontSize="2xl">{game.name}</Heading>
-        {/* <Icon>{game.rating}</Icon> */}
+        <RatingIcon ratings={game.ratings} />
       </CardBody>
     </Card>
   );

@@ -8,14 +8,7 @@ export interface Game {
   background_image: string;
   rating: number;
   metacritic: number;
-  ratings: [
-    {
-      id: number;
-      title: string;
-      count: number;
-      percent: number;
-    }
-  ];
+  ratings: Rating[];
   parent_platforms: [
     {
       platform: Platform;
@@ -24,9 +17,17 @@ export interface Game {
   ];
 }
 
+export interface Rating {
+  id: number;
+  title: string;
+  count: number;
+  percent: number;
+}
+
 export interface Platform {
   id: number;
   name: string;
+  slug: string;
 }
 
 interface FetchGameResponse {
