@@ -17,15 +17,13 @@ const RatingIcon = ({ ratings }: Props) => {
     meh: mehIcon,
     //skip:
   };
+  const highestRatingScore: number = ratings.reduce(
+    (prev, current) => (prev > current.count ? prev : current.count),
+    0
+  );
+  let r = ratings.find((r) => r.count === highestRatingScore)!.id;
 
-  const getHighestRating = () => {
-    const highestRatingScore: number = ratings.reduce(
-      (prev, current) => (prev > current.count ? prev : current.count),
-      0
-    );
-    const r = ratings.find((r) => r.count === highestRatingScore);
-  };
-  return <Image src={mapIcons["exceptional"]} boxSize="30px" />;
+  return <Image src={mapIcons[ratings[r].title]} boxSize="30px" />;
 };
 
 export default RatingIcon;
