@@ -33,7 +33,7 @@ const RatingIcon = ({ ratings }: Props) => {
 
   const highestRatingIndex = getHighestRating();
   return (
-    <Image src={mapIcons[ratings[highestRatingIndex].title]} boxSize="30px" />
+    <Image src={mapIcons[ratings[highestRatingIndex]?.title]} boxSize="30px" />
   );
 };
 
