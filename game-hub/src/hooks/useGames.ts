@@ -1,5 +1,6 @@
 import useData from "./useData";
 import { Genre } from "./useGenres";
+import { Platform } from "./usePlatforms";
 
 export interface Game {
   id: number;
@@ -22,12 +23,6 @@ export interface Rating {
   title: string;
   count: number;
   percent: number;
-}
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
 }
 
 const useGames = (selectedGenre: Genre | null) =>
