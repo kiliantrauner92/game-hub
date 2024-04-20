@@ -3,6 +3,7 @@ import React from "react";
 import { Image } from "@chakra-ui/react";
 import exceptionalIcon from "../assets/bulls-eye.webp";
 import mehIcon from "../assets/meh.webp";
+import skipIcon from "../assets/skip.png";
 import recommendedIcon from "../assets/thumbs-up.webp";
 
 import { Rating } from "../hooks/useGames";
@@ -15,7 +16,7 @@ const RatingIcon = ({ ratings }: Props) => {
     exceptional: exceptionalIcon,
     recommended: recommendedIcon,
     meh: mehIcon,
-    //skip:
+    skip: skipIcon,
   };
   const getHighestRating = () => {
     let highestRatingScore = 0;

@@ -15,7 +15,7 @@ const GameCard = ({ game }: Props) => {
       <CardBody p={3}>
         <HStack justifyContent={"space-between"}>
           <PlatformIconList
-            platform={game.parent_platforms.map((p) => p.platform)}
+            platform={game.parent_platforms?.map((p) => p.platform)}
           />
           <CriticScore score={game.metacritic} />
         </HStack>
