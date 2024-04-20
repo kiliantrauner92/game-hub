@@ -10,7 +10,7 @@ import React, { useState } from "react";
 const ColorModeSwitch = () => {
   const { toggleColorMode, colorMode } = useColorMode();
   return (
-    <HStack>
+    <HStack paddingLeft={3}>
       <Switch
         colorScheme="green"
         isChecked={colorMode === "dark" ? true : false}
