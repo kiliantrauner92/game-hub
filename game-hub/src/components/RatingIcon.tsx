@@ -1,41 +1,23 @@
 import React from "react";
 
-import { Image } from "@chakra-ui/react";
+import { Image, ImageProps } from "@chakra-ui/react";
 import exceptionalIcon from "../assets/bulls-eye.webp";
 import mehIcon from "../assets/meh.webp";
-import skipIcon from "../assets/skip.png";
 import recommendedIcon from "../assets/thumbs-up.webp";
 
-import { Rating } from "../hooks/useGames";
-
 interface Props {
-  ratings: Rating[];
+  rating: number;
 }
-const RatingIcon = ({ ratings }: Props) => {
-  const mapIcons: { [key: string]: string } = {
-    exceptional: exceptionalIcon,
-    recommended: recommendedIcon,
-    meh: mehIcon,
-    skip: skipIcon,
-  };
-  const getHighestRating = () => {
-    let highestRatingScore = 0;
-    let highestRatingIndex = 0;
 
-    for (let i = 0; i < ratings.length; i++) {
-      if (ratings[i].count > highestRatingScore) {
-        highestRatingScore = ratings[i].count;
-        highestRatingIndex = i;
-      }
-    }
-
-    return highestRatingIndex;
+const RatingIcon = ({ rating }: Props) => {
+  if (rating < 3) return null;
+  const mapIcons: { [key: number]: ImageProps } = {
+    5: { alt: "exceptional", src: exceptionalIcon },
+    4: { alt: "recommended", src: recommendedIcon },
+    3: { alt: "meh", src: mehIcon },
   };
 
-  const highestRatingIndex = getHighestRating();
-  return (
-    <Image src={mapIcons[ratings[highestRatingIndex]?.title]} boxSize="30px" />
-  );
+  return <Image {...mapIcons[rating]} boxSize="30px" />;
 };
 
 export default RatingIcon;

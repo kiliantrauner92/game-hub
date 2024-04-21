@@ -8,6 +8,7 @@ export interface Game {
   name: string;
   background_image: string;
   rating: number;
+  rating_top: number;
   metacritic: number;
   ratings: Rating[];
   genres: Genre[];
