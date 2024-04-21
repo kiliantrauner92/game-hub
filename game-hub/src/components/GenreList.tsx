@@ -20,6 +20,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data: genres, error, isLoading } = useGenres();
 
   if (error) return null;
+
   return (
     <VStack align="left">
       <Heading as="h2" fontSize="2xl">
