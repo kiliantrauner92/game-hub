@@ -12,12 +12,12 @@ interface Props {
 const RatingIcon = ({ rating }: Props) => {
   if (rating < 3) return null;
   const mapIcons: { [key: number]: ImageProps } = {
-    5: { alt: "exceptional", src: exceptionalIcon },
-    4: { alt: "recommended", src: recommendedIcon },
-    3: { alt: "meh", src: mehIcon },
+    5: { alt: "exceptional", src: exceptionalIcon, boxSize: "32px" },
+    4: { alt: "recommended", src: recommendedIcon, boxSize: "25px" },
+    3: { alt: "meh", src: mehIcon, boxSize: "25px" },
   };
 
-  return <Image {...mapIcons[rating]} boxSize="30px" />;
+  return <Image marginLeft={2} {...mapIcons[rating]} />;
 };
 
 export default RatingIcon;

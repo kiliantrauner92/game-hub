@@ -4,11 +4,10 @@ import {
   VStack,
   List,
   ListItem,
-  Spinner,
   Button,
   Heading,
+  Spinner,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
@@ -19,7 +18,6 @@ interface Props {
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data: genres, error, isLoading } = useGenres();
-  const [selectedItem, setSelectedItem] = useState();
 
   if (error) return null;
   return (
