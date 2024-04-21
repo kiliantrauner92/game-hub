@@ -24,7 +24,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   if (error) return null;
   return (
     <VStack align="left">
-      <Text as="b" fontSize="xl">
+      <Text as="b" fontSize="2xl">
         Genres
       </Text>
       {isLoading && <Spinner></Spinner>}
